@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<body ng-app="myModule">
+    <div ng-controller="myController">
+    	<div>
+        Search : <input type="text" placeholder="Search city & name"
+                        ng-model="searchText" />
+        <br /><br />
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Salary</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in employees | filter: search">
+                    <td> {{ employee.name }} </td>
+                    <td> {{ employee.gender }} </td>
+                    <td> {{ employee.salary  }} </td>
+                    <td> {{ employee.city  }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:40px;">
+    	Search Name : <input type="text" placeholder="Search Name"
+                        ng-model="searchText1.name" />
+        Search salary : <input type="text" placeholder="Search Salary"
+                        ng-model="searchText1.salary" />
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Salary</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee1 in employees1 | filter: searchText1">
+                    <td> {{ employee1.name }} </td>
+                    <td> {{ employee1.gender }} </td>
+                    <td> {{ employee1.salary  }} </td>
+                    <td> {{ employee1.city  }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+ 
+	<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript">
+	
+	var app = angular.module("myModule", []);
+        app.controller("myController", function ($scope) {
+
+            var employees = [
+                { name: "Ben", gender: "Male", salary: 55000, city: "London" },
+                { name: "Sara", gender: "Female", salary: 68000, city: "Chennai" },
+                { name: "Mark", gender: "Male", salary: 57000, city: "London" },
+                { name: "Pam", gender: "Female", salary: 53000, city: "Chennai" },
+                { name: "Todd", gender: "Male", salary: 60000, city: "London" },
+            ];
+            var employees1 = [
+                { name: "Ben", gender: "Male", salary: 55000, city: "London" },
+                { name: "Sara", gender: "Female", salary: 68000, city: "Chennai" },
+                { name: "Mark", gender: "Male", salary: 57000, city: "London" },
+                { name: "Pam", gender: "Female", salary: 53000, city: "Chennai" },
+                { name: "Todd", gender: "Male", salary: 60000, city: "London" },
+            ];
+
+            $scope.employees = employees;
+            $scope.employees1 = employees1;
+
+            $scope.search = function (item) {
+                if ($scope.searchText == undefined) {
+                    return true;
+                }
+                else {
+                    if (item.city.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1 ||
+                        item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) != -1) {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+        });
+</script>
+</body>
+</html>
